@@ -65,27 +65,27 @@ List<listType>::~List()
 	/*
 // Testing code
 int main(){
-List<int> integerList;
-integerList.add(7);
-std::cout << integerList.count() << std::endl;
-std::cout << integerList[0] << std::endl << std::endl;
-integerList.add(6);
-std::cout << integerList.count() << std::endl;
-std::cout << integerList[0] << std::endl;
-std::cout << integerList[1] << std::endl << std::endl;
-integerList.add(9);
-std::cout << integerList.count() << std::endl;
-std::cout << integerList[0] << std::endl;
-std::cout << integerList[1] << std::endl;
-std::cout << integerList[2] << std::endl << std::endl;
-integerList.remove(6);
-std::cout << integerList.count() << std::endl;
-std::cout << integerList[0] << std::endl;
-std::cout << integerList[1] << std::endl << std::endl;
+	List<int> integerList;
+	integerList.add(7);
+	std::cout << integerList.count() << std::endl;
+	std::cout << integerList[0] << std::endl << std::endl;
+	integerList.add(6);
+	std::cout << integerList.count() << std::endl;
+	std::cout << integerList[0] << std::endl;
+	std::cout << integerList[1] << std::endl << std::endl;
+	integerList.add(9);
+	std::cout << integerList.count() << std::endl;
+	std::cout << integerList[0] << std::endl;
+	std::cout << integerList[1] << std::endl;
+	std::cout << integerList[2] << std::endl << std::endl;
+	integerList.remove(6);
+	std::cout << integerList.count() << std::endl;
+	std::cout << integerList[0] << std::endl;
+	std::cout << integerList[1] << std::endl << std::endl;
 
-// Access an item that doesn't exist
-std::cout << integerList[2] << std::endl;
-// Try to remove an item that isn't in the list
-integerList.remove(23);
+	// Access an item that doesn't exist
+	std::cout << integerList[2] << std::endl;
+	// Try to remove an item that isn't in the list
+	integerList.remove(23);
 }
 //	*/
