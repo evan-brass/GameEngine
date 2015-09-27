@@ -117,6 +117,7 @@ int WINAPI WinMain(
 	LPSTR		lpCmdLine,
 	int			nCmdShow)
 {
+	List<int> integerList;
 	bool active = true;
 
 	scene = new Scene();
@@ -196,17 +197,17 @@ int WINAPI WinMain(
 	// Colors 
 	glm::vec3 colors[numVerts];
 	// Front face
-	colors[0 ] = glm::vec3(0.5f, 0.5f, 1.0f);
-	colors[1 ] = glm::vec3(0.5f, 0.5f, 1.0f);
-	colors[2 ] = glm::vec3(0.5f, 0.5f, 1.0f);
-	colors[3 ] = glm::vec3(0.5f, 0.5f, 1.0f);
-	colors[4 ] = glm::vec3(0.5f, 0.5f, 1.0f);
-	colors[5 ] = glm::vec3(0.5f, 0.5f, 1.0f);
+	colors[ 0] = glm::vec3(0.5f, 0.5f, 1.0f);
+	colors[ 1] = glm::vec3(0.5f, 0.5f, 1.0f);
+	colors[ 2] = glm::vec3(0.5f, 0.5f, 1.0f);
+	colors[ 3] = glm::vec3(0.5f, 0.5f, 1.0f);
+	colors[ 4] = glm::vec3(0.5f, 0.5f, 1.0f);
+	colors[ 5] = glm::vec3(0.5f, 0.5f, 1.0f);
 	// Left face
-	colors[6 ] = glm::vec3(1.0f, 0.0f, 0.0f);
-	colors[7 ] = glm::vec3(1.0f, 0.0f, 0.0f);
-	colors[8 ] = glm::vec3(1.0f, 0.0f, 0.0f);
-	colors[9 ] = glm::vec3(1.0f, 0.0f, 0.0f);
+	colors[ 6] = glm::vec3(1.0f, 0.0f, 0.0f);
+	colors[ 7] = glm::vec3(1.0f, 0.0f, 0.0f);
+	colors[ 8] = glm::vec3(1.0f, 0.0f, 0.0f);
+	colors[ 9] = glm::vec3(1.0f, 0.0f, 0.0f);
 	colors[10] = glm::vec3(1.0f, 0.0f, 0.0f);
 	colors[11] = glm::vec3(1.0f, 0.0f, 0.0f);
 	// Right face
@@ -251,8 +252,8 @@ int WINAPI WinMain(
 	cam->projectionMatrix = glm::perspective(45.0f, aspect, 0.1f, 100.0f);
 	cam->transform = glm::lookAt(
 		glm::vec3(0, 0, -3), // Camera is at (4,3,3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+		glm::vec3(0, 0, 0),  // and looks at the origin
+		glm::vec3(0, 1, 0)   // Head is up (set to 0,-1,0 to look upside-down)
 		);
 
 	scene->addChild(cubeO);
@@ -285,6 +286,7 @@ int WINAPI WinMain(
 				if( ! renderer->drawScene() ){
 					cout << "Rendering failed";
 				}
+				/*
 				// Bracket begin a path 
 				HDC hdc = GetDC(windowManager->getRealHandle());
 				RECT r;
@@ -301,6 +303,7 @@ int WINAPI WinMain(
 				// Bracket end a path 
 				EndPath(hdc);
 				EndPaint(windowManager->getRealHandle(), &p);
+				*/
 			}
 		}
 	}

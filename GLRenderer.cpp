@@ -171,7 +171,7 @@ bool GLRenderer::setupShaders(){
 
 	// Vertex Shader
 	std::ifstream vertexShaderFile;
-	vertexShaderFile.open("D:\\EclipseWorkspace\\C++GE\\src\\shaders\\minimal.vert");
+	vertexShaderFile.open("D:\\VisualStudioWorkspace\\GameEngine\\shaders\\minimal.vert");
 	if (!vertexShaderFile.is_open()){
 		char error[120];
 		strerror_s(error, sizeof(char)*120, errno);
@@ -201,7 +201,7 @@ bool GLRenderer::setupShaders(){
 
 	// Fragment Shader
 	std::string fragShaderText;
-	std::fstream fragmentShaderFile("D:\\EclipseWorkspace\\C++GE\\src\\shaders\\minimal.frag", std::ios::in);
+	std::fstream fragmentShaderFile("D:\\VisualStudioWorkspace\\GameEngine\\shaders\\minimal.frag", std::ios::in);
 	if (!fragmentShaderFile.is_open()){
 		char error[120];
 		strerror_s(error, sizeof(char) * 120, errno);
@@ -287,7 +287,7 @@ bool GLRenderer::drawChildren(glm::mat4 *parentLocation, Object *object, Camera 
 	}
 
 	// Tree recursion
-	for (int i = 0; i < object->numChildren; i++)
+	for (int i = 0; i < object->count(); i++)
 	{
 		if (!drawChildren(&location, object->children[i], camera)){
 			return false;
@@ -318,7 +318,7 @@ bool GLRenderer::drawMesh(Mesh * mesh, glm::mat4 * location, Camera * camera){
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 			glUniformMatrix4fv(modelViewProjectionMatrixId, 1, GL_FALSE, &MVP[0][0]);
 
-			glDrawArrays(GL_TRIANGLES, curMesh->firstVert, curMesh->mesh->vertCount);
+			glDrawArrays(GL_TRIANGLES, curMesh->firstVert, curMesh->mesh->count());
 
 			glDisableVertexAttribArray(0);
 			glDisableVertexAttribArray(1);
@@ -357,22 +357,22 @@ bool GLRenderer::loadMesh(Mesh *mesh){
 		curCache.VBOs[0] = &arrayBufferStatic;
 		curCache.VBOs[1] = &arrayBufferStaticColor;
 		curCache.firstVert = numStaticBuffer;
-		numStaticBuffer += mesh->vertCount;
+		numStaticBuffer += mesh->count();
 		staticBufferContent = static_cast<glm::vec3*>(realloc(staticBufferContent, sizeof(glm::vec3)*numStaticBuffer));
-		memcpy(&staticBufferContent[curCache.firstVert], mesh->vertices, sizeof(glm::vec3)*mesh->vertCount);
+		memcpy(&staticBufferContent[curCache.firstVert], mesh->vertices.start(), sizeof(glm::vec3)*mesh->count());
 		staticBufferContentColor = static_cast<glm::vec3*>(realloc(staticBufferContentColor, sizeof(glm::vec3)*numStaticBuffer));
-		memcpy(&staticBufferContentColor[curCache.firstVert], mesh->colorData, sizeof(glm::vec3)*mesh->vertCount);
+		memcpy(&staticBufferContentColor[curCache.firstVert], mesh->colorData.start(), sizeof(glm::vec3)*mesh->count());
 		staticChanged = true;
 		break;
 	case MESHLAYER_DYNAMIC:
 		curCache.VBOs[0] = &arrayBufferDynamic;
 		curCache.VBOs[1] = &arrayBufferDynamicColor;
 		curCache.firstVert = numDynamicBuffer;
-		numDynamicBuffer += mesh->vertCount;
+		numDynamicBuffer += mesh->count();
 		dynamicBufferContent = static_cast<glm::vec3*>(realloc(dynamicBufferContent, sizeof(glm::vec3)*numDynamicBuffer));
-		memcpy(&dynamicBufferContent[curCache.firstVert], mesh->vertices, sizeof(glm::vec3)*mesh->vertCount);
+		memcpy(&dynamicBufferContent[curCache.firstVert], mesh->vertices.start(), sizeof(glm::vec3)*mesh->count());
 		dynamicBufferContentColor = static_cast<glm::vec3*>(realloc(dynamicBufferContentColor, sizeof(glm::vec3)*numStaticBuffer));
-		memcpy(&dynamicBufferContentColor[curCache.firstVert], mesh->colorData, sizeof(glm::vec3)*mesh->vertCount);
+		memcpy(&dynamicBufferContentColor[curCache.firstVert], mesh->colorData.start(), sizeof(glm::vec3)*mesh->count());
 		dynamicChanged = true;
 		break;
 	default:
@@ -389,16 +389,16 @@ bool GLRenderer::unloadMesh(Mesh * mesh){
 			switch (meshes[i].mesh->layer){
 			case MESHLAYER_STATIC:
 				memcpy(&staticBufferContent[curMesh.firstVert], 
-					&staticBufferContent[curMesh.firstVert + curMesh.mesh->vertCount], 
-					sizeof(glm::vec3)*(numStaticBuffer -curMesh.firstVert - curMesh.mesh->vertCount));
-				numStaticBuffer -= curMesh.mesh->vertCount;
+					&staticBufferContent[curMesh.firstVert + curMesh.mesh->count()], 
+					sizeof(glm::vec3)*(numStaticBuffer -curMesh.firstVert - curMesh.mesh->count()));
+				numStaticBuffer -= curMesh.mesh->count();
 				staticBufferContent = static_cast<glm::vec3*>(realloc(staticBufferContent, sizeof(glm::vec3)*numStaticBuffer));
 				break;
 			case MESHLAYER_DYNAMIC:
 				memcpy(&dynamicBufferContent[curMesh.firstVert],
-					&dynamicBufferContent[curMesh.firstVert + curMesh.mesh->vertCount],
-					sizeof(glm::vec3)*(numDynamicBuffer - curMesh.firstVert - curMesh.mesh->vertCount));
-				numDynamicBuffer -= curMesh.mesh->vertCount;
+					&dynamicBufferContent[curMesh.firstVert + curMesh.mesh->count()],
+					sizeof(glm::vec3)*(numDynamicBuffer - curMesh.firstVert - curMesh.mesh->count()));
+				numDynamicBuffer -= curMesh.mesh->count();
 				dynamicBufferContent = static_cast<glm::vec3*>(realloc(dynamicBufferContent, sizeof(glm::vec3)*numDynamicBuffer));
 				break;
 			default:

@@ -1,29 +1,26 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(std::string name)
+Mesh::Mesh(std::string name) : vertices(), colorData()
 {
 	layer = MESHLAYER_STATIC;
-	vertCount = 0;
 	this->name = name;
-	vertices = static_cast<glm::vec3*>(malloc(sizeof(glm::vec3)));
-	colorData = static_cast<glm::vec3*>(malloc(sizeof(glm::vec3)));
 }
 
 bool Mesh::loadMesh(const int numVerts, glm::vec3 * verts, glm::vec3 * colors)
 {
-	vertCount = numVerts;
+	vertices.add_multiple(verts, numVerts);
 
-	vertices = static_cast<glm::vec3*>(realloc(vertices, sizeof(glm::vec3)*vertCount));
-	memcpy(vertices, verts, sizeof(glm::vec3)*vertCount);
-
-	colorData = static_cast<glm::vec3*>(realloc(colorData, sizeof(glm::vec3)*vertCount));
-	memcpy(colorData, colors, sizeof(glm::vec3)*vertCount);
+	colorData.add_multiple(colors, numVerts);
 
 	return true;
 }
 
+int Mesh::count(){
+	return vertices.count();
+}
+
 Mesh::~Mesh()
 {
-	free(vertices);
+	
 }

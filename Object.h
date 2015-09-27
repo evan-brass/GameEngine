@@ -5,14 +5,15 @@
 
 #include "glm/glm.hpp"
 
+#include "List.h"
+
 class Mesh;
 
 class Object
 {
 public:
 	// Tree
-	int numChildren;
-	Object **children;
+	List<Object*> children;
 
 	// Mesh
 	Mesh * mesh;
@@ -25,6 +26,7 @@ public:
 	// Children
 	bool addChild(Object *child);
 	bool removeChild(Object *child);
+	int count();
 
 	Object(std::string name, Mesh *mesh);
 	virtual ~Object();

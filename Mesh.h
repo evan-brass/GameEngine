@@ -5,6 +5,8 @@
 
 #include "glm/glm.hpp"
 
+#include "List.h"
+
 /**
 * Mesh Layers: Static = no change to vertex data, Dynamic = Change to vertex data
 *	Used to determine which VBO to place mesh data in.
@@ -20,10 +22,11 @@ public:
 	MeshLayer layer;
 	std::string name;
 
-	int vertCount;
-	glm::vec3 * vertices;
+	List<glm::vec3> vertices;
 
-	glm::vec3 * colorData;
+	List<glm::vec3> colorData;
+
+	int count();
 
 	Mesh(std::string name);
 

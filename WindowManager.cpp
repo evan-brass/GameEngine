@@ -12,8 +12,8 @@
 
 using namespace std;
 namespace{
-	const LPCSTR DummyClassName = "OGLDummyCLass";
-	const LPCSTR FinalClassName = "OGLWindowClass";
+	const LPCWSTR DummyClassName = L"OGLDummyCLass";
+	const LPCWSTR FinalClassName = L"OGLWindowClass";
 }
 
 extern GLRenderer * renderer;
@@ -63,7 +63,7 @@ bool WindowManager::createGLDummyWindow(){
 		//WS_EX_APPWINDOW,
 		WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,
 		DummyClassName,
-		"This is the fake window for context creation",
+		L"This is the fake window for context creation",
 		WS_CLIPSIBLINGS |
 		WS_CLIPCHILDREN |
 		WS_OVERLAPPEDWINDOW,
@@ -87,7 +87,7 @@ bool WindowManager::createGLFinalWindow(){
 		//WS_EX_APPWINDOW,
 		WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,
 		FinalClassName,
-		"Real window",
+		L"Real window",
 		WS_CLIPSIBLINGS |
 		WS_CLIPCHILDREN |
 		WS_OVERLAPPEDWINDOW,

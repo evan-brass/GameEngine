@@ -13,10 +13,11 @@
 #include <windows.h>
 
 #include "WindowManager.h"
+#include "Region.h"
+#include "RenderOperation.h"
 
 // Utilities
 #include "List.h"
-typedef MeshCacheList List<MeshCache>;
 
 #include "glm/glm.hpp"
 
@@ -34,7 +35,13 @@ struct MeshCache{ // This is my attempt to decrease the accesses to the actual M
 class GLRenderer {
 private:
 	// Scene graph
-	Scene *scene;
+	Scene * scene;
+
+	// Regions
+	List<Region *> regions;
+
+	// Render Operations
+	RenderOperation renderOps;
 
 	// Context creation
 	HDC deviceContext;
